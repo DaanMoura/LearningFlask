@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for
 import flask_login as fl
 from app import app, db, lm
 
-from app.models.tables import User
-from app.models.forms import LoginForm
+from app.models.tables import User, Post
+from app.models.forms import LoginForm, PostForm
 
 @lm.user_loader
 def load_user(id):
@@ -44,4 +44,18 @@ def logout():
 
 @app.route("/posts")
 def posts():
-    return render_template("posts.html")
+    posts = Post.query.all()
+    return render_template("posts.html", posts=posts, User=User)
+
+@app.route("/piu", methods=["POST", "GET"])
+def piu():
+    form = PostForm()
+    if form.validate_on_submit():
+        user = fl.current_user
+        user_id = user.id
+        i = Post(form.post.data, user_id)
+        db.session.add(i)
+        db.session.commit()
+        return redirect(url_for("posts"))
+        print("Is validated")
+    return render_template("piu.html", form=form)

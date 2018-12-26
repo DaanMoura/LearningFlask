@@ -47,7 +47,7 @@ class Post(db.Model):
         self.user_id = user_id
 
     def __self__(self):
-        return "<Post %r" % self.id
+        return "<Post %r>" % self.id
 
 class Follow(db.Model):
     __tablename__ = "follow"

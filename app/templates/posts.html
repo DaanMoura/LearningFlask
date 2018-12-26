@@ -3,7 +3,20 @@
 
 {% block content %}
 <div class="container">
+  {% if current_user.is_authenticated %}
+  <h1>Posts <a class="btn btn-primary ml-4" href="/piu" role="button">Piu</a> </h1>
+  {% else %}
   <h1>Posts</h1>
+  {% endif %}
+
+  {% for post in posts %}
+  <div class="card mt-4" style="width: 36rem;">
+    <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">@{{ User.query.filter_by(id=post.user_id).first().username }}</h6>
+      <p class="card-text">{{ post.content }}</p>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
