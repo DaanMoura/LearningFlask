@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ super() }} - Index {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <div class="container">
+      {% if user %}
+      <h1 class="display-4">Bem vindo ao Piu, {{user}}!</h1>
+      {% else %}
+      <h1 class="display-4">Bem vindo ao Piu!</h1>
+      {% endif %}
+      <p class="lead">Rede social para compartilhar seus pensamentos com as pessoas!</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
